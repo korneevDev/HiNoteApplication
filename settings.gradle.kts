@@ -22,5 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "HiNote"
 include(":app")
 include(":presentation:note")
-include(":domain:note")
 include(":data:note")
+include(":domain:note")
+include(":core")

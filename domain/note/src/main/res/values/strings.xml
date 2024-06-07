@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sameUpdatedNotesException">There are no changes</string>
+    <string name="outOfMemoryNotesException">Out of memory. Too many notes</string>
+</resources>
