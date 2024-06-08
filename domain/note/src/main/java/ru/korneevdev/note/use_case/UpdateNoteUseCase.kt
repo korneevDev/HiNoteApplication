@@ -23,17 +23,15 @@ interface UpdateNoteUseCase {
         private val stringResourceProvider: StringResourceProvider
     ) : UpdateNoteUseCase {
         override suspend fun updateNote(id: Int, newNote: SimpleNote): Flow<ProcessingState> =
-            flow {
-                try {
-                    val oldNote = getRepository.getNote(id).first()
-                    if (!oldNote.equals(newNote)) {
-                        emit(saveRepository.saveNote(newNote, id).first())
-                    } else {
-                        throw SameUpdatedNotesException(stringResourceProvider)
-                    }
-                } catch (e: NoteException) {
-                    emit(exceptionHandler.handleException(e))
+            try {
+                val oldNote = getRepository.getNote(id).first()
+                if (!oldNote.equals(newNote)) {
+                    saveRepository.saveNote(newNote, id)
+                } else {
+                    throw SameUpdatedNotesException(stringResourceProvider)
                 }
+            } catch (e: NoteException) {
+                flow { emit(exceptionHandler.handleException(e)) }
             }
     }
 
