@@ -9,12 +9,18 @@ interface DeleteNoteUseCase {
 
     suspend fun deleteNote(id: Int): Flow<ProcessingState>
 
+    fun restoreNote()
+
     class Base(
         private val repository: DeleteNoteRepository
     ) : DeleteNoteUseCase {
         override suspend fun deleteNote(id: Int): Flow<ProcessingState> {
             repository.deleteNote(id)
             return flow { emit(ProcessingState.Deleted(id)) }
+        }
+
+        override fun restoreNote() {
+            repository.restoreDeletedNote()
         }
     }
 }

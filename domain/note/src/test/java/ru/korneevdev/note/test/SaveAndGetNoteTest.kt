@@ -36,6 +36,7 @@ class SaveAndGetNoteTest {
         NoteContent("Test note content 3"),
         NoteColor(0)
     )
+
     @Test
     fun saveNote() = runTest {
         val repository = TestRepository()
@@ -48,16 +49,11 @@ class SaveAndGetNoteTest {
 
         val expected = ProcessingState.Created(0)
         val actualFlow = saveNoteUseCase.saveNote(note1)
-
-        actualFlow.collect{actual ->
-            assertEquals(expected, actual)
-        }
+        assertEquals(expected, actualFlow.first())
 
         val expectedSavedNotesCount = 1
         val actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
-
     }
 
     @Test
@@ -69,22 +65,15 @@ class SaveAndGetNoteTest {
                 repository,
                 exceptionHandler
             )
-
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
         val expectedState = ProcessingState.Created(0)
         val actualStateFlow = saveNoteUseCase.saveNote(note1)
-
-        actualStateFlow.collect{ actual ->
-            assertEquals(expectedState, actual)
-        }
+        assertEquals(expectedState, actualStateFlow.first())
 
         val expectedNote = Note(0, NoteTimeStamp(10L, 20L), note1)
         val actualNoteFlow = getNoteUseCase.getNote(0)
-
-        actualNoteFlow.collect{actual ->
-            assertEquals(expectedNote, actual)
-        }
+        assertEquals(expectedNote, actualNoteFlow.first())
     }
 
     @Test
@@ -96,36 +85,23 @@ class SaveAndGetNoteTest {
                 repository,
                 exceptionHandler
             )
-
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
         var expectedState = ProcessingState.Created(0)
         var actualStateFlow = saveNoteUseCase.saveNote(note1)
-
-        actualStateFlow.collect{ actual ->
-            assertEquals(expectedState, actual)
-        }
+        assertEquals(expectedState, actualStateFlow.first())
 
         expectedState = ProcessingState.Created(1)
         actualStateFlow = saveNoteUseCase.saveNote(note2)
-
-        actualStateFlow.collect{ actual ->
-            assertEquals(expectedState, actual)
-        }
+        assertEquals(expectedState, actualStateFlow.first())
 
         var expectedNote = Note(0, NoteTimeStamp(10L, 20L), note1)
         var actualNoteFlow = getNoteUseCase.getNote(0)
-
-        actualNoteFlow.collect{actual ->
-            assertEquals(expectedNote, actual)
-        }
+        assertEquals(expectedNote, actualNoteFlow.first())
 
         expectedNote = Note(1, NoteTimeStamp(10L, 20L), note2)
         actualNoteFlow = getNoteUseCase.getNote(1)
-
-        actualNoteFlow.collect{actual ->
-            assertEquals(expectedNote, actual)
-        }
+        assertEquals(expectedNote, actualNoteFlow.first())
     }
 
     @Test
@@ -142,7 +118,7 @@ class SaveAndGetNoteTest {
         saveNoteUseCase.saveNote(note2)
 
         val expectedErrorState = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
-        val actualErrorState =  saveNoteUseCase.saveNote(note3).first()
+        val actualErrorState = saveNoteUseCase.saveNote(note3).first()
 
         assertEquals(expectedErrorState, actualErrorState)
     }

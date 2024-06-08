@@ -40,7 +40,6 @@ class UpdateNoteUseCaseTest {
                 repository,
                 exceptionHandler
             )
-
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
@@ -50,25 +49,19 @@ class UpdateNoteUseCaseTest {
 
         var expected = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
-
         assertEquals(expected, actualFlow.first())
-
 
         var expectedSavedNotesCount = 1
         var actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
-
 
         expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
-
         assertEquals(expected, actualFlow.first())
 
 
         expectedSavedNotesCount = 2
         actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
     }
 
@@ -83,7 +76,6 @@ class UpdateNoteUseCaseTest {
                 repository,
                 exceptionHandler
             )
-
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
@@ -93,25 +85,20 @@ class UpdateNoteUseCaseTest {
 
         var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
-
         assertEquals(expected, actualFlow.first())
-
 
         var expectedSavedNotesCount = 1
         var actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
 
         expected = ProcessingState.Error(TestConstants.errorNoChanges, 1)
         actualFlow = updateNoteUseCase.updateNote(0, note1)
-
         assertEquals(expected, actualFlow.first())
 
 
         expectedSavedNotesCount = 1
         actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
     }
 
@@ -125,7 +112,6 @@ class UpdateNoteUseCaseTest {
                 repository,
                 exceptionHandler
             )
-
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
@@ -135,36 +121,26 @@ class UpdateNoteUseCaseTest {
 
         var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
-
         assertEquals(expected, actualFlow.first())
-
 
         var expectedSavedNotesCount = 1
         var actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
-
 
         expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
-
         assertEquals(expected, actualFlow.first())
-
 
         expectedSavedNotesCount = 2
         actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
         expected = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
         actualFlow = updateNoteUseCase.updateNote(1, note1)
-
         assertEquals(expected, actualFlow.first())
-
 
         expectedSavedNotesCount = 2
         actualSavedNotesCount = repository.notesList.size
-
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
     }
 }

@@ -17,6 +17,9 @@ class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteReposito
     var timeStamp = NoteTimeStamp(10L, 20L)
     var lastNoteId = 0
     private val maxSize = TestConstants.maxSavedNotes
+
+    var deletedNote : SimpleNote? = null
+
     override suspend fun getNote(id: Int): Flow<Note> =
         flow {
             emit(Note(
@@ -36,6 +39,12 @@ class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteReposito
         saveNote(newNote)
 
     override suspend fun deleteNote(id: Int) {
+        deletedNote = notesList[id]
         notesList.removeAt(id)
+    }
+
+    override fun restoreDeletedNote() {
+        notesList.add(deletedNote!!)
+        deletedNote = null
     }
 }
