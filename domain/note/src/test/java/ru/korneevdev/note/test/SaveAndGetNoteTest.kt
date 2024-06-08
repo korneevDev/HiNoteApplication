@@ -8,9 +8,9 @@ import ru.korneevdev.note.entity.Note
 import ru.korneevdev.note.entity.NoteColor
 import ru.korneevdev.note.entity.NoteContent
 import ru.korneevdev.note.entity.NoteHeader
-import ru.korneevdev.note.entity.NoteId
 import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.ProcessingState
+import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
 import ru.korneevdev.note.mock.TestRepository
@@ -19,27 +19,21 @@ import ru.korneevdev.note.use_case.SaveNoteUseCase
 
 class SaveAndGetNoteTest {
 
-    private val note1 = Note(
-        NoteId.Id(0),
+    private val note1 = SimpleNote(
         NoteHeader("Test note header 0"),
         NoteContent("Test note content 1"),
-        NoteTimeStamp(1000L, 2000L),
         NoteColor(0)
     )
 
-    private val note2 = Note(
-        NoteId.Id(1),
+    private val note2 = SimpleNote(
         NoteHeader("Test note header 1"),
         NoteContent("Test note content 2"),
-        NoteTimeStamp(1000L, 2000L),
         NoteColor(0)
     )
 
-    private val note3 = Note(
-        NoteId.Id(2),
+    private val note3 = SimpleNote(
         NoteHeader("Test note header 2"),
         NoteContent("Test note content 3"),
-        NoteTimeStamp(1000L, 2000L),
         NoteColor(0)
     )
     @Test
@@ -52,12 +46,18 @@ class SaveAndGetNoteTest {
                 exceptionHandler
             )
 
-        val expected = ProcessingState.Success(NoteId.Id(0))
+        val expected = ProcessingState.Success(0)
         val actualFlow = saveNoteUseCase.saveNote(note1)
 
         actualFlow.collect{actual ->
             assertEquals(expected, actual)
         }
+
+        val expectedSavedNotesCount = 1
+        val actualSavedNotesCount = repository.notesList.size
+
+        assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
+
     }
 
     @Test
@@ -72,15 +72,15 @@ class SaveAndGetNoteTest {
 
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        val expectedState = ProcessingState.Success(NoteId.Id(0))
+        val expectedState = ProcessingState.Success(0)
         val actualStateFlow = saveNoteUseCase.saveNote(note1)
 
         actualStateFlow.collect{ actual ->
             assertEquals(expectedState, actual)
         }
 
-        val expectedNote = note1
-        val actualNoteFlow = getNoteUseCase.getNote(NoteId.Id(0))
+        val expectedNote = Note(0, NoteTimeStamp(10L, 20L), note1)
+        val actualNoteFlow = getNoteUseCase.getNote(0)
 
         actualNoteFlow.collect{actual ->
             assertEquals(expectedNote, actual)
@@ -99,29 +99,29 @@ class SaveAndGetNoteTest {
 
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        var expectedState = ProcessingState.Success(NoteId.Id(0))
+        var expectedState = ProcessingState.Success(0)
         var actualStateFlow = saveNoteUseCase.saveNote(note1)
 
         actualStateFlow.collect{ actual ->
             assertEquals(expectedState, actual)
         }
 
-        expectedState = ProcessingState.Success(NoteId.Id(1))
+        expectedState = ProcessingState.Success(1)
         actualStateFlow = saveNoteUseCase.saveNote(note2)
 
         actualStateFlow.collect{ actual ->
             assertEquals(expectedState, actual)
         }
 
-        var expectedNote = note1
-        var actualNoteFlow = getNoteUseCase.getNote(NoteId.Id(0))
+        var expectedNote = Note(0, NoteTimeStamp(10L, 20L), note1)
+        var actualNoteFlow = getNoteUseCase.getNote(0)
 
         actualNoteFlow.collect{actual ->
             assertEquals(expectedNote, actual)
         }
 
-        expectedNote = note2
-        actualNoteFlow = getNoteUseCase.getNote(NoteId.Id(1))
+        expectedNote = Note(1, NoteTimeStamp(10L, 20L), note2)
+        actualNoteFlow = getNoteUseCase.getNote(1)
 
         actualNoteFlow.collect{actual ->
             assertEquals(expectedNote, actual)

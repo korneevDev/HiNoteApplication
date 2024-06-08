@@ -1,6 +1,5 @@
 package ru.korneevdev.note.entity
 
-class NoteColor(
+data class NoteColor(
     private val mainColor: Int
-) {
-}
+)

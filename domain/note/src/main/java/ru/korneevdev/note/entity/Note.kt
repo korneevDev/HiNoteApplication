@@ -1,45 +1,32 @@
 package ru.korneevdev.note.entity
 
-data class Note(
-    private val id: NoteId,
+data class SimpleNote(
     private val header: NoteHeader,
     private val content: NoteContent,
-    private val timeStamp: NoteTimeStamp,
     private val color: NoteColor
+)
+
+data class Note(
+    private val id: Int,
+    private val timeStamp: NoteTimeStamp,
+    private val simpleNote: SimpleNote
 ) {
-
-    fun update(newNote: Note) =
-        Note(
-            newNote.id,
-            newNote.header,
-            newNote.content,
-            timeStamp.updateNoteTime(newNote.timeStamp),
-            newNote.color
-        )
-
-    fun checkIdSame(id: NoteId) = this.id == id
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (javaClass != other?.javaClass && simpleNote.javaClass != other?.javaClass)
+            return false
 
-        other as Note
+        val otherSimpleNote = if (other is Note) other.simpleNote else other
 
-        if (header != other.header) return false
-        if (content != other.content) return false
-        if (color != other.color) return false
-
-        return true
+        return simpleNote == otherSimpleNote
     }
 
     override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + header.hashCode()
-        result = 31 * result + content.hashCode()
+        var result = id
         result = 31 * result + timeStamp.hashCode()
-        result = 31 * result + color.hashCode()
+        result = 31 * result + simpleNote.hashCode()
         return result
     }
-
 }
 

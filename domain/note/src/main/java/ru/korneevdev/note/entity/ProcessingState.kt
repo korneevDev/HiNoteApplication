@@ -3,7 +3,7 @@ package ru.korneevdev.note.entity
 sealed interface ProcessingState {
 
     data class Success(
-        private val id: NoteId
+        private val id: Int
     ) : ProcessingState
 
     data class Error(
