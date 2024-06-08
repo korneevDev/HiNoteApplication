@@ -16,3 +16,8 @@ interface SaveNoteRepository {
 
     suspend fun saveNote(newNote: SimpleNote, oldNoteId: Int): Flow<ProcessingState>
 }
+
+interface DeleteNoteRepository {
+
+    suspend fun deleteNote(id: Int)
+}

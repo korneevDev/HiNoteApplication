@@ -46,7 +46,7 @@ class SaveAndGetNoteTest {
                 exceptionHandler
             )
 
-        val expected = ProcessingState.Success(0)
+        val expected = ProcessingState.Created(0)
         val actualFlow = saveNoteUseCase.saveNote(note1)
 
         actualFlow.collect{actual ->
@@ -72,7 +72,7 @@ class SaveAndGetNoteTest {
 
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        val expectedState = ProcessingState.Success(0)
+        val expectedState = ProcessingState.Created(0)
         val actualStateFlow = saveNoteUseCase.saveNote(note1)
 
         actualStateFlow.collect{ actual ->
@@ -99,14 +99,14 @@ class SaveAndGetNoteTest {
 
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        var expectedState = ProcessingState.Success(0)
+        var expectedState = ProcessingState.Created(0)
         var actualStateFlow = saveNoteUseCase.saveNote(note1)
 
         actualStateFlow.collect{ actual ->
             assertEquals(expectedState, actual)
         }
 
-        expectedState = ProcessingState.Success(1)
+        expectedState = ProcessingState.Created(1)
         actualStateFlow = saveNoteUseCase.saveNote(note2)
 
         actualStateFlow.collect{ actual ->

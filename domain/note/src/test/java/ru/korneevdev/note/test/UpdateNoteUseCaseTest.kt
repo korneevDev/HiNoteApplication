@@ -48,7 +48,7 @@ class UpdateNoteUseCaseTest {
             resourceProvider
         )
 
-        var expected = ProcessingState.Success(0)
+        var expected = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
 
         assertEquals(expected, actualFlow.first())
@@ -60,7 +60,7 @@ class UpdateNoteUseCaseTest {
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
 
-        expected = ProcessingState.Success(1)
+        expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
 
         assertEquals(expected, actualFlow.first())
@@ -91,7 +91,7 @@ class UpdateNoteUseCaseTest {
             resourceProvider
         )
 
-        var expected: ProcessingState = ProcessingState.Success(0)
+        var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
 
         assertEquals(expected, actualFlow.first())
@@ -133,7 +133,7 @@ class UpdateNoteUseCaseTest {
             resourceProvider
         )
 
-        var expected: ProcessingState = ProcessingState.Success(0)
+        var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
 
         assertEquals(expected, actualFlow.first())
@@ -145,7 +145,7 @@ class UpdateNoteUseCaseTest {
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
 
-        expected = ProcessingState.Success(1)
+        expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
 
         assertEquals(expected, actualFlow.first())
