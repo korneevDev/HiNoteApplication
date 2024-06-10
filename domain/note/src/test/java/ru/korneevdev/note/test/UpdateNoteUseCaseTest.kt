@@ -4,31 +4,25 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.korneevdev.note.entity.NoteColor
-import ru.korneevdev.note.entity.NoteContent
-import ru.korneevdev.note.entity.NoteHeader
 import ru.korneevdev.note.entity.ProcessingState
-import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
+import ru.korneevdev.note.mock.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.mock.TestStringResourceProvider
+import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 import ru.korneevdev.note.use_case.UpdateNoteUseCase
 
 class UpdateNoteUseCaseTest {
 
-    private val note1 = SimpleNote(
-        NoteHeader("Test note header 0"),
-        NoteContent("Test note content 1"),
-        NoteColor(0)
-    )
+    private val note1 = TestNoteBuilder()
+        .setTestFields(0)
+        .buildSimpleNote()
 
-    private val note2 = SimpleNote(
-        NoteHeader("Test note header 1"),
-        NoteContent("Test note content 2"),
-        NoteColor(0)
-    )
+    private val note2 = TestNoteBuilder()
+        .setTestFields(1)
+        .buildSimpleNote()
 
     @Test
     fun saveAndUpdateNote() = runTest {
@@ -65,6 +59,49 @@ class UpdateNoteUseCaseTest {
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
     }
 
+    @Test
+    fun saveUpdateGetNote() = runTest {
+        val repository = TestRepository()
+        val exceptionHandler = TestExceptionHandler()
+        val resourceProvider = TestStringResourceProvider()
+        val saveNoteUseCase =
+            SaveNoteUseCase.Base(
+                repository,
+                exceptionHandler
+            )
+        val updateNoteUseCase = UpdateNoteUseCase.Base(
+            repository,
+            repository,
+            exceptionHandler,
+            resourceProvider
+        )
+        val getNoteUseCase = GetNoteUseCase.Base(
+            repository
+        )
+
+        var expected = ProcessingState.Created(0)
+        var actualFlow = saveNoteUseCase.saveNote(note1)
+        assertEquals(expected, actualFlow.first())
+
+        var expectedSavedNotesCount = 1
+        var actualSavedNotesCount = repository.notesList.size
+        assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
+
+        expected = ProcessingState.Created(1)
+        actualFlow = updateNoteUseCase.updateNote(0, note2)
+        assertEquals(expected, actualFlow.first())
+
+        expectedSavedNotesCount = 2
+        actualSavedNotesCount = repository.notesList.size
+        assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
+
+        val expectedNote = TestNoteBuilder()
+            .setTestFields(1)
+            .setUpdatedTimeStamp(0, 1)
+            .buildNote()
+        val actualNote = getNoteUseCase.getNote(1)
+        assertEquals(expectedNote, actualNote.first())
+    }
 
     @Test
     fun saveAndUpdateNoteWithoutChanges() = runTest {

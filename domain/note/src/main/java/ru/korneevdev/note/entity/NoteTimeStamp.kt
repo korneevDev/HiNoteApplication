@@ -1,9 +1,12 @@
 package ru.korneevdev.note.entity
 
-data class NoteTimeStamp(
-    private val createdTime: Long,
-    private var lastEditedTime: Long
-){
-    fun updateNoteTime(newTimeStamp: NoteTimeStamp) =
-        NoteTimeStamp(createdTime, newTimeStamp.lastEditedTime)
+sealed interface NoteTimeStamp{
+    data class FirstCreated(
+        private val createdTime: Long
+    ) : NoteTimeStamp
+
+    data class Updated(
+        private val createdTime: Long,
+        private var lastEditedTime: Long
+    ) : NoteTimeStamp
 }

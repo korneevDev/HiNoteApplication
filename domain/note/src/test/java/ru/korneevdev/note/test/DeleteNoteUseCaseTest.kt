@@ -5,23 +5,19 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.korneevdev.note.entity.NoteColor
-import ru.korneevdev.note.entity.NoteContent
-import ru.korneevdev.note.entity.NoteHeader
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.mock.TestExceptionHandler
+import ru.korneevdev.note.mock.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.use_case.DeleteNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 
 class DeleteNoteUseCaseTest {
 
-    private val note1 = SimpleNote(
-        NoteHeader("Test note header 0"),
-        NoteContent("Test note content 1"),
-        NoteColor(0)
-    )
+    private val note1 = TestNoteBuilder()
+        .setTestFields(0)
+        .buildSimpleNote()
 
     @Test
     fun saveAndDeleteNote() = runTest {

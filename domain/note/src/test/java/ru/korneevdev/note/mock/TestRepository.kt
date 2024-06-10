@@ -14,19 +14,25 @@ import ru.korneevdev.note.exception.OutOfMemoryException
 class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteRepository {
 
     val notesList = mutableListOf<SimpleNote>()
-    var timeStamp = NoteTimeStamp(10L, 20L)
-    var lastNoteId = 0
+    private var timeStamp: Long? = null
+    private var lastNoteId = 0
     private val maxSize = TestConstants.maxSavedNotes
 
-    var deletedNote : SimpleNote? = null
+    var deletedNote: SimpleNote? = null
 
     override suspend fun getNote(id: Int): Flow<Note> =
         flow {
-            emit(Note(
-                id,
-                timeStamp,
-                notesList[id]
-            ))
+            emit(
+                Note(
+                    id,
+                    if (timeStamp != null)
+                        NoteTimeStamp.Updated(timeStamp!!, id.toLong())
+                            .also { timeStamp = null }
+                    else
+                        NoteTimeStamp.FirstCreated(id.toLong()),
+                    notesList[id]
+                )
+            )
         }
 
     override suspend fun saveNote(note: SimpleNote): Flow<ProcessingState> =
@@ -36,7 +42,9 @@ class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteReposito
         } else throw OutOfMemoryException(TestStringResourceProvider())
 
     override suspend fun saveNote(newNote: SimpleNote, oldNoteId: Int): Flow<ProcessingState> =
-        saveNote(newNote)
+        saveNote(newNote).also {
+            this.timeStamp = oldNoteId.toLong()
+        }
 
     override suspend fun deleteNote(id: Int) {
         deletedNote = notesList[id]
