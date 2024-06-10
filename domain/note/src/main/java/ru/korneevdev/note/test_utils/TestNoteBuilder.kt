@@ -1,4 +1,4 @@
-package ru.korneevdev.note.mock
+package ru.korneevdev.note.test_utils
 
 import ru.korneevdev.note.entity.Note
 import ru.korneevdev.note.entity.NoteColor

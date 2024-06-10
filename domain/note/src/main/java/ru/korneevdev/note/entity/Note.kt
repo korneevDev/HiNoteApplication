@@ -12,6 +12,8 @@ data class Note(
     private val simpleNote: SimpleNote
 ) {
 
+    fun getUpdatedTimeStamp(newTime: Long) = timeStamp.setLastEditedTime(newTime)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass && simpleNote.javaClass != other?.javaClass)

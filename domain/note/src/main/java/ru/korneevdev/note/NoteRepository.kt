@@ -21,5 +21,5 @@ interface DeleteNoteRepository {
 
     suspend fun deleteNote(id: Int)
 
-    fun restoreDeletedNote()
+    suspend fun restoreDeletedNote()
 }

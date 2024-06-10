@@ -51,7 +51,7 @@ class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteReposito
         notesList.removeAt(id)
     }
 
-    override fun restoreDeletedNote() {
+    override suspend fun restoreDeletedNote() {
         notesList.add(deletedNote!!)
         deletedNote = null
     }

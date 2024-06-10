@@ -9,7 +9,7 @@ import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
-import ru.korneevdev.note.mock.TestNoteBuilder
+import ru.korneevdev.note.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
