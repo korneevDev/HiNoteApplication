@@ -16,7 +16,7 @@ import ru.korneevdev.note.use_case.SaveNoteUseCase
 
 class DeleteNoteUseCaseTest {
 
-    private val note1 = TestNoteBuilder()
+    private val note1 = TestNoteBuilder
         .setTestFields(0)
         .buildSimpleNote()
 

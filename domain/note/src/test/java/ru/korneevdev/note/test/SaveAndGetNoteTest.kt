@@ -17,15 +17,15 @@ import ru.korneevdev.note.use_case.SaveNoteUseCase
 
 class SaveAndGetNoteTest {
 
-    private val note1 = TestNoteBuilder()
+    private val note1 = TestNoteBuilder
         .setTestFields(0)
         .buildSimpleNote()
 
-    private val note2 = TestNoteBuilder()
+    private val note2 = TestNoteBuilder
         .setTestFields(1)
         .buildSimpleNote()
 
-    private val note3 = TestNoteBuilder()
+    private val note3 = TestNoteBuilder
         .setTestFields(2)
         .buildSimpleNote()
 

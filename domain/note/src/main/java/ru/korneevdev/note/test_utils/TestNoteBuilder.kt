@@ -7,7 +7,7 @@ import ru.korneevdev.note.entity.NoteHeader
 import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.SimpleNote
 
-class TestNoteBuilder {
+object TestNoteBuilder {
 
     private var header = NoteHeader("Test header 0")
     private var content = NoteContent("Test content 0")

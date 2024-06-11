@@ -17,11 +17,11 @@ import ru.korneevdev.note.use_case.UpdateNoteUseCase
 
 class UpdateNoteUseCaseTest {
 
-    private val note1 = TestNoteBuilder()
+    private val note1 = TestNoteBuilder
         .setTestFields(0)
         .buildSimpleNote()
 
-    private val note2 = TestNoteBuilder()
+    private val note2 = TestNoteBuilder
         .setTestFields(1)
         .buildSimpleNote()
 
@@ -102,7 +102,7 @@ class UpdateNoteUseCaseTest {
         actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        val expectedNote = TestNoteBuilder()
+        val expectedNote = TestNoteBuilder
             .setTestFields(1)
             .setUpdatedTimeStamp(0, 1)
             .buildNote()

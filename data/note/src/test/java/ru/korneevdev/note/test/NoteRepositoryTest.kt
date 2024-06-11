@@ -16,15 +16,15 @@ class NoteRepositoryTest {
 
     private val dispatcher = StandardTestDispatcher()
 
-    private val note1 = TestNoteBuilder()
+    private val note1 = TestNoteBuilder
         .setTestFields(0)
         .buildSimpleNote()
 
-    private val note2 = TestNoteBuilder()
+    private val note2 = TestNoteBuilder
         .setTestFields(1)
         .buildSimpleNote()
 
-    private val note3 = TestNoteBuilder()
+    private val note3 = TestNoteBuilder
         .setTestFields(2)
         .buildSimpleNote()
 
@@ -47,7 +47,7 @@ class NoteRepositoryTest {
         actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeLong(), 0)
         assertEquals(expected, actualFlow.first())
 
-        var expectedNote = TestNoteBuilder()
+        var expectedNote = TestNoteBuilder
             .setTestFields(1)
             .setUpdatedTimeStamp(0, 1)
             .buildNote()
@@ -64,7 +64,7 @@ class NoteRepositoryTest {
         actualFlow = repository.saveNote(note3, timeStampManager.getCurrentTimeLong(), 1)
         assertEquals(expected, actualFlow.first())
 
-        expectedNote = TestNoteBuilder()
+        expectedNote = TestNoteBuilder
             .setTestFields(2)
             .setUpdatedTimeStamp(1, 2)
             .buildNote()
@@ -93,7 +93,7 @@ class NoteRepositoryTest {
         val actualSavedNotesCount = dataSource.notes.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        val expectedNote = TestNoteBuilder().setTestFields(0).buildNote()
+        val expectedNote = TestNoteBuilder.setTestFields(0).buildNote()
         val actualNote = repository.getNote(0)
         assertEquals(expectedNote, actualNote.first())
     }
@@ -115,7 +115,7 @@ class NoteRepositoryTest {
         var actualSavedNotesCount = dataSource.notes.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        val expectedNote = TestNoteBuilder().setTestFields(0).buildNote()
+        val expectedNote = TestNoteBuilder.setTestFields(0).buildNote()
         val actualNote = repository.getNote(0)
         assertEquals(expectedNote, actualNote.first())
 
@@ -151,7 +151,7 @@ class NoteRepositoryTest {
         var actualSavedNotesCount = dataSource.notes.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        var expectedNote = TestNoteBuilder().setTestFields(0).buildNote()
+        var expectedNote = TestNoteBuilder.setTestFields(0).buildNote()
         var actualNote = repository.getNote(0)
         assertEquals(expectedNote, actualNote.first())
 
@@ -175,7 +175,7 @@ class NoteRepositoryTest {
         actualSavedNotesCount = dataSource.notes.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expectedNote = TestNoteBuilder().setTestFields(1).buildNote()
+        expectedNote = TestNoteBuilder.setTestFields(1).buildNote()
         actualNote = repository.getNote(1)
         assertEquals(expectedNote, actualNote.first())
     }

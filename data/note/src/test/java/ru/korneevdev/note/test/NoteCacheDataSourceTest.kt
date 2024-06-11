@@ -49,13 +49,13 @@ class NoteCacheDataSourceTest {
         )
 
         val timeStampManager = TestTimeStampManager()
-        val note1 = TestNoteBuilder().setTestFields(0).buildSimpleNote()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, (actual as Flow<*>).first())
 
-        expected = TestNoteBuilder().setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.getNote(0)
         assertEquals(expected, (actual as Flow<*>).first())
 
@@ -89,7 +89,7 @@ class NoteCacheDataSourceTest {
         )
 
         val timeStampManager = TestTimeStampManager()
-        val note1 = TestNoteBuilder().setTestFields(0).buildSimpleNote()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
@@ -99,7 +99,7 @@ class NoteCacheDataSourceTest {
         actual = dao.notes.size
         assertEquals(expected, actual)
 
-        expected = TestNoteBuilder().setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.deleteNote(0)
         assertEquals(expected, actual)
 
@@ -133,7 +133,7 @@ class NoteCacheDataSourceTest {
         )
 
         val timeStampManager = TestTimeStampManager()
-        val note1 = TestNoteBuilder().setTestFields(0).buildSimpleNote()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
@@ -143,7 +143,7 @@ class NoteCacheDataSourceTest {
         actual = dao.notes.size
         assertEquals(expected, actual)
 
-        expected = TestNoteBuilder().setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.deleteNote(0)
         assertEquals(expected, actual)
 
@@ -152,7 +152,7 @@ class NoteCacheDataSourceTest {
         assertEquals(expected, actual)
 
         expected = 0
-        actual = dataSource.saveNote(TestNoteBuilder().setTestFields(0).buildNote())
+        actual = dataSource.saveNote(TestNoteBuilder.setTestFields(0).buildNote())
         assertEquals(expected, (actual as Flow<*>).first())
 
     }
