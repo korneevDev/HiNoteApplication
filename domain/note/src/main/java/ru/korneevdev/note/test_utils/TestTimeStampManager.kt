@@ -1,6 +1,6 @@
-package ru.korneevdev.note.mock
+package ru.korneevdev.note.test_utils
 
-import ru.korneevdev.note.TimeStampManager
+import ru.korneevdev.note.utils.TimeStampManager
 import ru.korneevdev.note.entity.NoteTimeStamp
 
 class TestTimeStampManager : TimeStampManager {
@@ -10,4 +10,5 @@ class TestTimeStampManager : TimeStampManager {
     override fun getCurrentTimeLong() = time
 
     override fun getCurrentTimeStamp() = NoteTimeStamp.FirstCreated(time)
+
 }

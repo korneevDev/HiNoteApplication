@@ -1,4 +1,4 @@
-package ru.korneevdev.note
+package ru.korneevdev.note.utils
 
 import ru.korneevdev.note.entity.NoteTimeStamp
 

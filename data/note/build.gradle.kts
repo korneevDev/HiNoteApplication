@@ -21,10 +21,12 @@ dependencies {
 
     implementation(project(":domain:note"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.kxt)
     ksp(libs.androidx.room.compiler)
 }

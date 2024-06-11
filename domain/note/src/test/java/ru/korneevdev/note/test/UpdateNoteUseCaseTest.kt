@@ -10,6 +10,7 @@ import ru.korneevdev.note.mock.TestExceptionHandler
 import ru.korneevdev.note.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.mock.TestStringResourceProvider
+import ru.korneevdev.note.test_utils.TestTimeStampManager
 import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 import ru.korneevdev.note.use_case.UpdateNoteUseCase
@@ -29,16 +30,19 @@ class UpdateNoteUseCaseTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
         val resourceProvider = TestStringResourceProvider()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
             exceptionHandler,
-            resourceProvider
+            resourceProvider,
+            timeStampManager
         )
 
         var expected = ProcessingState.Created(0)
@@ -64,16 +68,19 @@ class UpdateNoteUseCaseTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
         val resourceProvider = TestStringResourceProvider()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
             exceptionHandler,
-            resourceProvider
+            resourceProvider,
+            timeStampManager
         )
         val getNoteUseCase = GetNoteUseCase.Base(
             repository
@@ -108,16 +115,19 @@ class UpdateNoteUseCaseTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
         val resourceProvider = TestStringResourceProvider()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
             exceptionHandler,
-            resourceProvider
+            resourceProvider,
+            timeStampManager
         )
 
         var expected: ProcessingState = ProcessingState.Created(0)
@@ -144,16 +154,19 @@ class UpdateNoteUseCaseTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
         val resourceProvider = TestStringResourceProvider()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val updateNoteUseCase = UpdateNoteUseCase.Base(
             repository,
             repository,
             exceptionHandler,
-            resourceProvider
+            resourceProvider,
+            timeStampManager
         )
 
         var expected: ProcessingState = ProcessingState.Created(0)

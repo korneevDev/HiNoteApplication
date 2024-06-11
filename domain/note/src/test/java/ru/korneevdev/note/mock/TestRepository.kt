@@ -10,8 +10,11 @@ import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.exception.OutOfMemoryException
+import ru.korneevdev.note.test_utils.TestTimeStampManager
 
-class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteRepository {
+class TestRepository(
+    private val timeStampManager: TestTimeStampManager = TestTimeStampManager()
+) : GetNoteRepository, SaveNoteRepository, DeleteNoteRepository {
 
     val notesList = mutableListOf<SimpleNote>()
     private var timeStamp: Long? = null
@@ -35,14 +38,21 @@ class TestRepository : GetNoteRepository, SaveNoteRepository, DeleteNoteReposito
             )
         }
 
-    override suspend fun saveNote(note: SimpleNote): Flow<ProcessingState> =
+    override suspend fun saveNote(
+        note: SimpleNote,
+        currentTimeStamp: NoteTimeStamp
+    ): Flow<ProcessingState> =
         if (notesList.size < maxSize) {
             notesList.add(note)
             flow { emit(ProcessingState.Created(lastNoteId++)) }
         } else throw OutOfMemoryException(TestStringResourceProvider())
 
-    override suspend fun saveNote(newNote: SimpleNote, oldNoteId: Int): Flow<ProcessingState> =
-        saveNote(newNote).also {
+    override suspend fun saveNote(
+        newNote: SimpleNote,
+        currentTime: Long,
+        oldNoteId: Int
+    ): Flow<ProcessingState> =
+        saveNote(newNote, timeStampManager.getCurrentTimeStamp()).also {
             this.timeStamp = oldNoteId.toLong()
         }
 

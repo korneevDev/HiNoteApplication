@@ -1,18 +1,21 @@
 package ru.korneevdev.note.entity
 
-data class SimpleNote(
-    private val header: NoteHeader,
-    private val content: NoteContent,
-    private val color: NoteColor
-)
+import ru.korneevdev.note.mapper.NoteMapper
+
+interface NoteMapped {
+
+    fun <T> map(mapper: NoteMapper<T>) : T
+}
 
 data class Note(
     private val id: Int,
     private val timeStamp: NoteTimeStamp,
     private val simpleNote: SimpleNote
-) {
+) : NoteMapped{
 
     fun getUpdatedTimeStamp(newTime: Long) = timeStamp.setLastEditedTime(newTime)
+
+    override fun <T> map(mapper: NoteMapper<T>): T = mapper.map(id, timeStamp, simpleNote)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

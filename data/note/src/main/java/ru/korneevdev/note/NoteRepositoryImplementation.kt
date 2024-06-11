@@ -5,12 +5,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.korneevdev.core.CachedData
 import ru.korneevdev.note.entity.Note
+import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.entity.SimpleNote
+import ru.korneevdev.note.utils.DispatcherManager
 
 class NoteRepositoryImplementation(
-    private val cacheDataSource: CacheDataSource,
-    private val timeStampManager: TimeStampManager,
+    private val cacheDataSource: NoteCacheDataSource,
     private val dispatcherManager: DispatcherManager
 ) : GetNoteRepository, SaveNoteRepository, DeleteNoteRepository {
     private var cachedNote = CachedData<Note>()
@@ -20,21 +21,20 @@ class NoteRepositoryImplementation(
             return@withContext cacheDataSource.getNote(id)
         }
 
-    override suspend fun saveNote(note: SimpleNote) =
+    override suspend fun saveNote(note: SimpleNote, currentTimeStamp: NoteTimeStamp) =
         withContext(dispatcherManager.io()) {
             return@withContext cacheDataSource.saveNote(
                 note,
-                timeStampManager.getCurrentTimeStamp()
+                currentTimeStamp
             ).map {
                 ProcessingState.Created(it)
             }
         }
 
-    override suspend fun saveNote(newNote: SimpleNote, oldNoteId: Int) =
+    override suspend fun saveNote(newNote: SimpleNote, currentTime: Long, oldNoteId: Int) =
         withContext(dispatcherManager.io()) {
             val oldNote = getNote(oldNoteId).first()
-            val currentTimeStamp = timeStampManager.getCurrentTimeLong()
-            val updatedTimeStamp = oldNote.getUpdatedTimeStamp(currentTimeStamp)
+            val updatedTimeStamp = oldNote.getUpdatedTimeStamp(currentTime)
 
             return@withContext cacheDataSource.saveNote(newNote, updatedTimeStamp).map {
                 ProcessingState.Created(it)

@@ -11,6 +11,7 @@ import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
 import ru.korneevdev.note.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
+import ru.korneevdev.note.test_utils.TestTimeStampManager
 import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 
@@ -32,10 +33,12 @@ class SaveAndGetNoteTest {
     fun saveNote() = runTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
 
         val expected = ProcessingState.Created(0)
@@ -51,10 +54,12 @@ class SaveAndGetNoteTest {
     fun saveAndGetNote() = runTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
@@ -71,10 +76,12 @@ class SaveAndGetNoteTest {
     fun saveAndGetMultiplesNote() = runTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
@@ -99,10 +106,12 @@ class SaveAndGetNoteTest {
     fun saveNoteOutOfMemoryException() = runTest {
         val repository = TestRepository()
         val exceptionHandler = TestExceptionHandler()
+        val timeStampManager = TestTimeStampManager()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
 
         saveNoteUseCase.saveNote(note1)

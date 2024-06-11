@@ -2,12 +2,12 @@ package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.note.CacheDataSource
+import ru.korneevdev.note.NoteCacheDataSource
 import ru.korneevdev.note.entity.Note
 import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.SimpleNote
 
-class TestCacheDataSource : CacheDataSource {
+class TestCacheDataSource : NoteCacheDataSource {
 
     val notes = mutableListOf<Note>()
     override suspend fun getNote(id: Int): Flow<Note> = flow {

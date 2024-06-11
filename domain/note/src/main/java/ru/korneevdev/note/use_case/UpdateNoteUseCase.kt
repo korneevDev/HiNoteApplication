@@ -11,6 +11,7 @@ import ru.korneevdev.note.SaveNoteRepository
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.exception.SameUpdatedNotesException
+import ru.korneevdev.note.utils.TimeStampManager
 
 interface UpdateNoteUseCase {
 
@@ -20,13 +21,14 @@ interface UpdateNoteUseCase {
         private val saveRepository: SaveNoteRepository,
         private val getRepository: GetNoteRepository,
         private val exceptionHandler: ExceptionHandler<ProcessingState>,
-        private val stringResourceProvider: StringResourceProvider
+        private val stringResourceProvider: StringResourceProvider,
+        private val timeStampManager: TimeStampManager
     ) : UpdateNoteUseCase {
         override suspend fun updateNote(id: Int, newNote: SimpleNote): Flow<ProcessingState> =
             try {
                 val oldNote = getRepository.getNote(id).first()
                 if (!oldNote.equals(newNote)) {
-                    saveRepository.saveNote(newNote, id)
+                    saveRepository.saveNote(newNote, timeStampManager.getCurrentTimeLong(), id)
                 } else {
                     throw SameUpdatedNotesException(stringResourceProvider)
                 }

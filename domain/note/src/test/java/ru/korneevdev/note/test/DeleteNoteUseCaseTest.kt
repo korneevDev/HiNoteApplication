@@ -10,6 +10,7 @@ import ru.korneevdev.note.entity.SimpleNote
 import ru.korneevdev.note.mock.TestExceptionHandler
 import ru.korneevdev.note.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
+import ru.korneevdev.note.test_utils.TestTimeStampManager
 import ru.korneevdev.note.use_case.DeleteNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 
@@ -21,12 +22,14 @@ class DeleteNoteUseCaseTest {
 
     @Test
     fun saveAndDeleteNote() = runTest {
-        val repository = TestRepository()
+        val timeStampManager = TestTimeStampManager()
+        val repository = TestRepository(timeStampManager)
         val exceptionHandler = TestExceptionHandler()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val deleteNoteUseCase = DeleteNoteUseCase.Base(
             repository
@@ -51,12 +54,14 @@ class DeleteNoteUseCaseTest {
 
     @Test
     fun deleteAndRestoreNote() = runTest {
-        val repository = TestRepository()
+        val timeStampManager = TestTimeStampManager()
+        val repository = TestRepository(timeStampManager)
         val exceptionHandler = TestExceptionHandler()
         val saveNoteUseCase =
             SaveNoteUseCase.Base(
                 repository,
-                exceptionHandler
+                exceptionHandler,
+                timeStampManager
             )
         val deleteNoteUseCase = DeleteNoteUseCase.Base(
             repository

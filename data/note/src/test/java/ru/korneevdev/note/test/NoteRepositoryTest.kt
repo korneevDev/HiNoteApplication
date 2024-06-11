@@ -9,8 +9,8 @@ import ru.korneevdev.note.NoteRepositoryImplementation
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.mock.TestCacheDataSource
 import ru.korneevdev.note.mock.TestDispatcherManager
-import ru.korneevdev.note.mock.TestTimeStampManager
 import ru.korneevdev.note.test_utils.TestNoteBuilder
+import ru.korneevdev.note.test_utils.TestTimeStampManager
 
 class NoteRepositoryTest {
 
@@ -35,16 +35,16 @@ class NoteRepositoryTest {
         val timeStampManager = TestTimeStampManager()
 
         val repository =
-            NoteRepositoryImplementation(dataSource, timeStampManager, dispatcherManager)
+            NoteRepositoryImplementation(dataSource, dispatcherManager)
 
         var expected = ProcessingState.Created(0)
-        var actualFlow = repository.saveNote(note1)
+        var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         timeStampManager.time = 1
 
         expected = ProcessingState.Created(1)
-        actualFlow = repository.saveNote(note2, 0)
+        actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeLong(), 0)
         assertEquals(expected, actualFlow.first())
 
         var expectedNote = TestNoteBuilder()
@@ -61,7 +61,7 @@ class NoteRepositoryTest {
         timeStampManager.time = 2
 
         expected = ProcessingState.Created(2)
-        actualFlow = repository.saveNote(note3, 1)
+        actualFlow = repository.saveNote(note3, timeStampManager.getCurrentTimeLong(), 1)
         assertEquals(expected, actualFlow.first())
 
         expectedNote = TestNoteBuilder()
@@ -83,10 +83,10 @@ class NoteRepositoryTest {
         val timeStampManager = TestTimeStampManager()
 
         val repository =
-            NoteRepositoryImplementation(dataSource, timeStampManager, dispatcherManager)
+            NoteRepositoryImplementation(dataSource, dispatcherManager)
 
         val expected = ProcessingState.Created(0)
-        val actualFlow = repository.saveNote(note1)
+        val actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         val expectedSavedNotesCount = 1
@@ -105,10 +105,10 @@ class NoteRepositoryTest {
         val timeStampManager = TestTimeStampManager()
 
         val repository =
-            NoteRepositoryImplementation(dataSource, timeStampManager, dispatcherManager)
+            NoteRepositoryImplementation(dataSource, dispatcherManager)
 
         var expected = ProcessingState.Created(0)
-        var actualFlow = repository.saveNote(note1)
+        var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         var expectedSavedNotesCount = 1
@@ -120,7 +120,7 @@ class NoteRepositoryTest {
         assertEquals(expectedNote, actualNote.first())
 
         expected = ProcessingState.Created(1)
-        actualFlow = repository.saveNote(note2)
+        actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         expectedSavedNotesCount = 2
@@ -141,10 +141,10 @@ class NoteRepositoryTest {
         val timeStampManager = TestTimeStampManager()
 
         val repository =
-            NoteRepositoryImplementation(dataSource, timeStampManager, dispatcherManager)
+            NoteRepositoryImplementation(dataSource, dispatcherManager)
 
         var expected = ProcessingState.Created(0)
-        var actualFlow = repository.saveNote(note1)
+        var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         var expectedSavedNotesCount = 1
@@ -156,7 +156,7 @@ class NoteRepositoryTest {
         assertEquals(expectedNote, actualNote.first())
 
         expected = ProcessingState.Created(1)
-        actualFlow = repository.saveNote(note2)
+        actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         expectedSavedNotesCount = 2

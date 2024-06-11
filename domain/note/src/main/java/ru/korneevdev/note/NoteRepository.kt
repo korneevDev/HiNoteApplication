@@ -2,6 +2,7 @@ package ru.korneevdev.note
 
 import kotlinx.coroutines.flow.Flow
 import ru.korneevdev.note.entity.Note
+import ru.korneevdev.note.entity.NoteTimeStamp
 import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.entity.SimpleNote
 
@@ -12,9 +13,13 @@ interface GetNoteRepository {
 
 interface SaveNoteRepository {
 
-    suspend fun saveNote(note: SimpleNote): Flow<ProcessingState>
+    suspend fun saveNote(note: SimpleNote, currentTimeStamp: NoteTimeStamp): Flow<ProcessingState>
 
-    suspend fun saveNote(newNote: SimpleNote, oldNoteId: Int): Flow<ProcessingState>
+    suspend fun saveNote(
+        newNote: SimpleNote,
+        currentTime: Long,
+        oldNoteId: Int
+    ): Flow<ProcessingState>
 }
 
 interface DeleteNoteRepository {

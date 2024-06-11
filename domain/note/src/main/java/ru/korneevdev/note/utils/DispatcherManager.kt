@@ -1,4 +1,4 @@
-package ru.korneevdev.note
+package ru.korneevdev.note.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
