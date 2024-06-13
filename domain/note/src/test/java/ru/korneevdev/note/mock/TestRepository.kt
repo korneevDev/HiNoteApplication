@@ -2,56 +2,56 @@ package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.note.DeleteNoteRepository
-import ru.korneevdev.note.GetNoteRepository
-import ru.korneevdev.note.SaveNoteRepository
 import ru.korneevdev.entity.entity.Note
 import ru.korneevdev.entity.entity.NoteTimeStamp
 import ru.korneevdev.entity.entity.ProcessingState
 import ru.korneevdev.entity.entity.SimpleNote
-import ru.korneevdev.note.exception.OutOfMemoryException
 import ru.korneevdev.entity.test_utils.TestTimeStampManager
+import ru.korneevdev.note.DeleteNoteRepository
+import ru.korneevdev.note.GetNoteRepository
+import ru.korneevdev.note.SaveNoteRepository
+import ru.korneevdev.note.exception.OutOfMemoryException
 
 class TestRepository(
     private val timeStampManager: TestTimeStampManager = TestTimeStampManager()
 ) : GetNoteRepository, SaveNoteRepository, DeleteNoteRepository {
 
-    val notesList = mutableListOf<ru.korneevdev.entity.entity.SimpleNote>()
+    val notesList = mutableListOf<SimpleNote>()
     private var timeStamp: Long? = null
     private var lastNoteId = 0
     private val maxSize = TestConstants.maxSavedNotes
 
-    var deletedNote: ru.korneevdev.entity.entity.SimpleNote? = null
+    var deletedNote: SimpleNote? = null
 
-    override suspend fun getNote(id: Int): Flow<ru.korneevdev.entity.entity.Note> =
+    override suspend fun getNote(id: Int): Flow<Note> =
         flow {
             emit(
-                ru.korneevdev.entity.entity.Note(
+                Note(
                     id,
                     if (timeStamp != null)
-                        ru.korneevdev.entity.entity.NoteTimeStamp.Updated(timeStamp!!, id.toLong())
+                        NoteTimeStamp.Updated(timeStamp!!, id.toLong())
                             .also { timeStamp = null }
                     else
-                        ru.korneevdev.entity.entity.NoteTimeStamp.FirstCreated(id.toLong()),
+                        NoteTimeStamp.FirstCreated(id.toLong()),
                     notesList[id]
                 )
             )
         }
 
     override suspend fun saveNote(
-        note: ru.korneevdev.entity.entity.SimpleNote,
-        currentTimeStamp: ru.korneevdev.entity.entity.NoteTimeStamp
-    ): Flow<ru.korneevdev.entity.entity.ProcessingState> =
+        note: SimpleNote,
+        currentTimeStamp: NoteTimeStamp
+    ): Flow<ProcessingState> =
         if (notesList.size < maxSize) {
             notesList.add(note)
-            flow { emit(ru.korneevdev.entity.entity.ProcessingState.Created(lastNoteId++)) }
+            flow { emit(ProcessingState.Created(lastNoteId++)) }
         } else throw OutOfMemoryException(TestStringResourceProvider())
 
     override suspend fun saveNote(
-        newNote: ru.korneevdev.entity.entity.SimpleNote,
+        newNote: SimpleNote,
         currentTime: Long,
         oldNoteId: Int
-    ): Flow<ru.korneevdev.entity.entity.ProcessingState> =
+    ): Flow<ProcessingState> =
         saveNote(newNote, timeStampManager.getCurrentTimeStamp()).also {
             this.timeStamp = oldNoteId.toLong()
         }

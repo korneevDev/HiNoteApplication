@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.korneevDev.core.CachedData
 import ru.korneevdev.entity.entity.Note
+import ru.korneevdev.entity.entity.NoteTimeStamp
+import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.entity.SimpleNote
 
 class NoteRepositoryImplementation(
     private val cacheDataSource: NoteCacheDataSource,
@@ -18,20 +21,20 @@ class NoteRepositoryImplementation(
         }
 
     override suspend fun saveNote(
-        note: ru.korneevdev.entity.entity.SimpleNote,
-        currentTimeStamp: ru.korneevdev.entity.entity.NoteTimeStamp
+        note: SimpleNote,
+        currentTimeStamp: NoteTimeStamp
     ) =
         withContext(dispatcherManager.io()) {
             return@withContext cacheDataSource.saveNote(
                 note,
                 currentTimeStamp
             ).map {
-                ru.korneevdev.entity.entity.ProcessingState.Created(it)
+                ProcessingState.Created(it)
             }
         }
 
     override suspend fun saveNote(
-        newNote: ru.korneevdev.entity.entity.SimpleNote,
+        newNote: SimpleNote,
         currentTime: Long,
         oldNoteId: Int
     ) =
@@ -40,7 +43,7 @@ class NoteRepositoryImplementation(
             val updatedTimeStamp = oldNote.getUpdatedTimeStamp(currentTime)
 
             return@withContext cacheDataSource.saveNote(newNote, updatedTimeStamp).map {
-                ru.korneevdev.entity.entity.ProcessingState.Created(it)
+                ProcessingState.Created(it)
             }
         }
 

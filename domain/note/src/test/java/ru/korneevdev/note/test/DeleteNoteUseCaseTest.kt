@@ -7,10 +7,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.korneevdev.entity.entity.ProcessingState
 import ru.korneevdev.entity.entity.SimpleNote
-import ru.korneevdev.note.mock.TestExceptionHandler
 import ru.korneevdev.entity.test_utils.TestNoteBuilder
-import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.entity.test_utils.TestTimeStampManager
+import ru.korneevdev.note.mock.TestExceptionHandler
+import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.use_case.DeleteNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 
@@ -35,15 +35,15 @@ class DeleteNoteUseCaseTest {
             repository
         )
 
-        var expected: ru.korneevdev.entity.entity.ProcessingState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
-        var actualFlow: Flow<ru.korneevdev.entity.entity.ProcessingState> = saveNoteUseCase.saveNote(note1)
+        var expected: ProcessingState = ProcessingState.Created(0)
+        var actualFlow: Flow<ProcessingState> = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
         var expectedSavedNotesCount = 1
         var actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Deleted(0)
+        expected = ProcessingState.Deleted(0)
         actualFlow = deleteNoteUseCase.deleteNote(0)
         assertEquals(expected, actualFlow.first())
 
@@ -67,15 +67,15 @@ class DeleteNoteUseCaseTest {
             repository
         )
 
-        var expected: ru.korneevdev.entity.entity.ProcessingState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
-        var actualFlow: Flow<ru.korneevdev.entity.entity.ProcessingState> = saveNoteUseCase.saveNote(note1)
+        var expected: ProcessingState = ProcessingState.Created(0)
+        var actualFlow: Flow<ProcessingState> = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
         var expectedSavedNotesCount = 1
         var actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Deleted(0)
+        expected = ProcessingState.Deleted(0)
         actualFlow = deleteNoteUseCase.deleteNote(0)
         assertEquals(expected, actualFlow.first())
 
@@ -83,7 +83,7 @@ class DeleteNoteUseCaseTest {
         actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        var expectedNote: ru.korneevdev.entity.entity.SimpleNote? = note1
+        var expectedNote: SimpleNote? = note1
         var actualNote = repository.deletedNote
         assertEquals(expectedNote, actualNote)
 

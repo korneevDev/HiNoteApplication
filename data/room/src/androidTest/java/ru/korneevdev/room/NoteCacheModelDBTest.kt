@@ -13,24 +13,26 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.korneevdev.entity.test_utils.TestNoteBuilder
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteColorCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteContentCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeaderCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampCacheModel
+import ru.korneevdev.room.room.MapperToNoteCacheModel
+import ru.korneevdev.room.room.MapperToNoteColorCacheModel
+import ru.korneevdev.room.room.MapperToNoteContentCacheModel
+import ru.korneevdev.room.room.MapperToNoteHeaderCacheModel
+import ru.korneevdev.room.room.MapperToSimpleNoteCacheModel
+import ru.korneevdev.room.room.MapperToTimeStampCacheModel
+import ru.korneevdev.room.room.NoteDAO
+import ru.korneevdev.room.room.NoteDB
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class NoteCacheModelDBTest {
-    private lateinit var noteDao: ru.korneevdev.room.room.NoteDAO
-    private lateinit var db: ru.korneevdev.room.room.NoteDB
+    private lateinit var noteDao: NoteDAO
+    private lateinit var db: NoteDB
 
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, ru.korneevdev.room.room.NoteDB::class.java
+            context, NoteDB::class.java
         ).build()
         noteDao = db.getNoteDAO()
     }

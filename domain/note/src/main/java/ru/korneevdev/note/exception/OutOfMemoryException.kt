@@ -5,8 +5,8 @@ import ru.korneevDev.core.StringResourceProvider
 import ru.korneevdev.note.R
 
 class OutOfMemoryException(
-    stringResourceProvider: ru.korneevDev.core.StringResourceProvider
-) : ru.korneevDev.core.NoteException(
+    stringResourceProvider: StringResourceProvider
+) : NoteException(
     stringResourceProvider.provideString(R.string.outOfMemoryNotesException)
 ) {
     override val imageRes: Int

@@ -6,24 +6,25 @@ import kotlinx.coroutines.flow.flow
 import ru.korneevDev.core.ExceptionHandler
 import ru.korneevDev.core.NoteException
 import ru.korneevDev.core.StringResourceProvider
+import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.utils.TimeStampManager
 import ru.korneevdev.note.GetNoteRepository
 import ru.korneevdev.note.SaveNoteRepository
-import ru.korneevdev.entity.entity.ProcessingState
 import ru.korneevdev.note.exception.SameUpdatedNotesException
-import ru.korneevdev.entity.utils.TimeStampManager
 
 interface UpdateNoteUseCase {
 
-    suspend fun updateNote(id: Int, newNote: ru.korneevdev.entity.entity.SimpleNote): Flow<ru.korneevdev.entity.entity.ProcessingState>
+    suspend fun updateNote(id: Int, newNote: SimpleNote): Flow<ProcessingState>
 
     class Base(
         private val saveRepository: SaveNoteRepository,
         private val getRepository: GetNoteRepository,
-        private val exceptionHandler: ru.korneevDev.core.ExceptionHandler<ProcessingState>,
-        private val stringResourceProvider: ru.korneevDev.core.StringResourceProvider,
+        private val exceptionHandler: ExceptionHandler<ProcessingState>,
+        private val stringResourceProvider: StringResourceProvider,
         private val timeStampManager: TimeStampManager
     ) : UpdateNoteUseCase {
-        override suspend fun updateNote(id: Int, newNote: ru.korneevdev.entity.entity.SimpleNote): Flow<ru.korneevdev.entity.entity.ProcessingState> =
+        override suspend fun updateNote(id: Int, newNote: SimpleNote): Flow<ProcessingState> =
             try {
                 val oldNote = getRepository.getNote(id).first()
                 if (!oldNote.equals(newNote)) {
@@ -31,7 +32,7 @@ interface UpdateNoteUseCase {
                 } else {
                     throw SameUpdatedNotesException(stringResourceProvider)
                 }
-            } catch (e: ru.korneevDev.core.NoteException) {
+            } catch (e: NoteException) {
                 flow { emit(exceptionHandler.handleException(e)) }
             }
     }

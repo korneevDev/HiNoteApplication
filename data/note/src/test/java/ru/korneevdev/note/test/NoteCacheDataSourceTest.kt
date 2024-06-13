@@ -5,22 +5,22 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.korneevdev.note.NoteCacheDataSource
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteColor
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteColorCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteContent
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteContentCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeader
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeaderCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToNoteModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampCacheModel
-import ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampModel
-import ru.korneevdev.note.mock.TestCacheDAO
 import ru.korneevdev.entity.test_utils.TestNoteBuilder
 import ru.korneevdev.entity.test_utils.TestTimeStampManager
+import ru.korneevdev.note.MapperToNoteColor
+import ru.korneevdev.note.MapperToNoteContent
+import ru.korneevdev.note.MapperToNoteHeader
+import ru.korneevdev.note.MapperToNoteModel
+import ru.korneevdev.note.MapperToSimpleNoteModel
+import ru.korneevdev.note.MapperToTimeStampModel
+import ru.korneevdev.note.NoteCacheDataSource
+import ru.korneevdev.note.mock.TestCacheDAO
+import ru.korneevdev.room.room.MapperToNoteCacheModel
+import ru.korneevdev.room.room.MapperToNoteColorCacheModel
+import ru.korneevdev.room.room.MapperToNoteContentCacheModel
+import ru.korneevdev.room.room.MapperToNoteHeaderCacheModel
+import ru.korneevdev.room.room.MapperToSimpleNoteCacheModel
+import ru.korneevdev.room.room.MapperToTimeStampCacheModel
 
 class NoteCacheDataSourceTest {
 
@@ -30,32 +30,32 @@ class NoteCacheDataSourceTest {
 
         val dataSource = NoteCacheDataSource.Base(
             dao,
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampCacheModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteCacheModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeaderCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContentCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColorCacheModel()
+            MapperToNoteCacheModel(
+                MapperToTimeStampCacheModel(),
+                MapperToSimpleNoteCacheModel(
+                    MapperToNoteHeaderCacheModel(),
+                    MapperToNoteContentCacheModel(),
+                    MapperToNoteColorCacheModel()
                 )
             ),
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeader(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContent(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColor()
+            MapperToNoteModel(
+                MapperToTimeStampModel(),
+                MapperToSimpleNoteModel(
+                    MapperToNoteHeader(),
+                    MapperToNoteContent(),
+                    MapperToNoteColor()
                 )
             )
         )
 
-        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
-        val note1 = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildSimpleNote()
+        val timeStampManager = TestTimeStampManager()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, (actual as Flow<*>).first())
 
-        expected = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.getNote(0)
         assertEquals(expected, (actual as Flow<*>).first())
 
@@ -70,26 +70,26 @@ class NoteCacheDataSourceTest {
 
         val dataSource = NoteCacheDataSource.Base(
             dao,
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampCacheModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteCacheModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeaderCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContentCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColorCacheModel()
+            MapperToNoteCacheModel(
+                MapperToTimeStampCacheModel(),
+                MapperToSimpleNoteCacheModel(
+                    MapperToNoteHeaderCacheModel(),
+                    MapperToNoteContentCacheModel(),
+                    MapperToNoteColorCacheModel()
                 )
             ),
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeader(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContent(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColor()
+            MapperToNoteModel(
+                MapperToTimeStampModel(),
+                MapperToSimpleNoteModel(
+                    MapperToNoteHeader(),
+                    MapperToNoteContent(),
+                    MapperToNoteColor()
                 )
             )
         )
 
-        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
-        val note1 = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildSimpleNote()
+        val timeStampManager = TestTimeStampManager()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
@@ -99,7 +99,7 @@ class NoteCacheDataSourceTest {
         actual = dao.notes.size
         assertEquals(expected, actual)
 
-        expected = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.deleteNote(0)
         assertEquals(expected, actual)
 
@@ -114,26 +114,26 @@ class NoteCacheDataSourceTest {
 
         val dataSource = NoteCacheDataSource.Base(
             dao,
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampCacheModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteCacheModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeaderCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContentCacheModel(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColorCacheModel()
+            MapperToNoteCacheModel(
+                MapperToTimeStampCacheModel(),
+                MapperToSimpleNoteCacheModel(
+                    MapperToNoteHeaderCacheModel(),
+                    MapperToNoteContentCacheModel(),
+                    MapperToNoteColorCacheModel()
                 )
             ),
-            ru.korneevdev.room.room.mapperImplementation.MapperToNoteModel(
-                ru.korneevdev.room.room.mapperImplementation.MapperToTimeStampModel(),
-                ru.korneevdev.room.room.mapperImplementation.MapperToSimpleNoteModel(
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteHeader(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteContent(),
-                    ru.korneevdev.room.room.mapperImplementation.MapperToNoteColor()
+            MapperToNoteModel(
+                MapperToTimeStampModel(),
+                MapperToSimpleNoteModel(
+                    MapperToNoteHeader(),
+                    MapperToNoteContent(),
+                    MapperToNoteColor()
                 )
             )
         )
 
-        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
-        val note1 = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildSimpleNote()
+        val timeStampManager = TestTimeStampManager()
+        val note1 = TestNoteBuilder.setTestFields(0).buildSimpleNote()
 
         var expected: Any = 0
         var actual: Any = dataSource.saveNote(note1, timeStampManager.getCurrentTimeStamp())
@@ -143,7 +143,7 @@ class NoteCacheDataSourceTest {
         actual = dao.notes.size
         assertEquals(expected, actual)
 
-        expected = ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildNote()
+        expected = TestNoteBuilder.setTestFields(0).buildNote()
         actual = dataSource.deleteNote(0)
         assertEquals(expected, actual)
 
@@ -152,7 +152,7 @@ class NoteCacheDataSourceTest {
         assertEquals(expected, actual)
 
         expected = 0
-        actual = dataSource.saveNote(ru.korneevdev.entity.test_utils.TestNoteBuilder.setTestFields(0).buildNote())
+        actual = dataSource.saveNote(TestNoteBuilder.setTestFields(0).buildNote())
         assertEquals(expected, (actual as Flow<*>).first())
 
     }

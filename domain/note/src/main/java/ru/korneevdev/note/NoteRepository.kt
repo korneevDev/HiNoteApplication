@@ -8,18 +8,16 @@ import ru.korneevdev.entity.entity.SimpleNote
 
 interface GetNoteRepository {
 
-    suspend fun getNote(id: Int): Flow<ru.korneevdev.entity.entity.Note>
+    suspend fun getNote(id: Int): Flow<Note>
 }
 
 interface SaveNoteRepository {
 
-    suspend fun saveNote(note: ru.korneevdev.entity.entity.SimpleNote, currentTimeStamp: ru.korneevdev.entity.entity.NoteTimeStamp): Flow<ru.korneevdev.entity.entity.ProcessingState>
+    suspend fun saveNote(note: SimpleNote, currentTimeStamp: NoteTimeStamp): Flow<ProcessingState>
 
     suspend fun saveNote(
-        newNote: ru.korneevdev.entity.entity.SimpleNote,
-        currentTime: Long,
-        oldNoteId: Int
-    ): Flow<ru.korneevdev.entity.entity.ProcessingState>
+        newNote: SimpleNote, currentTime: Long, oldNoteId: Int
+    ): Flow<ProcessingState>
 }
 
 interface DeleteNoteRepository {

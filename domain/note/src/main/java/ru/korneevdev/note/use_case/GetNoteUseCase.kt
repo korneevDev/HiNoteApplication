@@ -6,11 +6,11 @@ import ru.korneevdev.entity.entity.Note
 
 interface GetNoteUseCase {
 
-    suspend fun getNote(id: Int): Flow<ru.korneevdev.entity.entity.Note>
+    suspend fun getNote(id: Int): Flow<Note>
 
     class Base(
         private val repository: GetNoteRepository
     ): GetNoteUseCase {
-        override suspend fun getNote(id: Int): Flow<ru.korneevdev.entity.entity.Note> = repository.getNote(id)
+        override suspend fun getNote(id: Int): Flow<Note> = repository.getNote(id)
     }
 }

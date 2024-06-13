@@ -5,12 +5,12 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.test_utils.TestNoteBuilder
+import ru.korneevdev.entity.test_utils.TestTimeStampManager
 import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
-import ru.korneevdev.entity.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
 import ru.korneevdev.note.mock.TestStringResourceProvider
-import ru.korneevdev.entity.test_utils.TestTimeStampManager
 import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 import ru.korneevdev.note.use_case.UpdateNoteUseCase
@@ -45,7 +45,7 @@ class UpdateNoteUseCaseTest {
             timeStampManager
         )
 
-        var expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
+        var expected = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
@@ -53,7 +53,7 @@ class UpdateNoteUseCaseTest {
         var actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
+        expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
         assertEquals(expected, actualFlow.first())
 
@@ -86,7 +86,7 @@ class UpdateNoteUseCaseTest {
             repository
         )
 
-        var expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
+        var expected = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
@@ -94,7 +94,7 @@ class UpdateNoteUseCaseTest {
         var actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
+        expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
         assertEquals(expected, actualFlow.first())
 
@@ -130,7 +130,7 @@ class UpdateNoteUseCaseTest {
             timeStampManager
         )
 
-        var expected: ru.korneevdev.entity.entity.ProcessingState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
+        var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
@@ -139,7 +139,7 @@ class UpdateNoteUseCaseTest {
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Error(TestConstants.errorNoChanges, 1)
+        expected = ProcessingState.Error(TestConstants.errorNoChanges, 1)
         actualFlow = updateNoteUseCase.updateNote(0, note1)
         assertEquals(expected, actualFlow.first())
 
@@ -169,7 +169,7 @@ class UpdateNoteUseCaseTest {
             timeStampManager
         )
 
-        var expected: ru.korneevdev.entity.entity.ProcessingState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
+        var expected: ProcessingState = ProcessingState.Created(0)
         var actualFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
@@ -177,7 +177,7 @@ class UpdateNoteUseCaseTest {
         var actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
+        expected = ProcessingState.Created(1)
         actualFlow = updateNoteUseCase.updateNote(0, note2)
         assertEquals(expected, actualFlow.first())
 
@@ -185,7 +185,7 @@ class UpdateNoteUseCaseTest {
         actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ru.korneevdev.entity.entity.ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
+        expected = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
         actualFlow = updateNoteUseCase.updateNote(1, note1)
         assertEquals(expected, actualFlow.first())
 
