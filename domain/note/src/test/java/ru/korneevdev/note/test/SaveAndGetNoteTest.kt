@@ -129,7 +129,7 @@ class SaveAndGetNoteTest {
         saveNoteUseCase.saveNote(note1)
         saveNoteUseCase.saveNote(note2)
 
-        val expectedErrorState = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
+        val expectedErrorState = ProcessingState.Error(TestConstants.ERROR_OUT_OF_MEMORY_TEXT, 0)
         val actualErrorState = saveNoteUseCase.saveNote(note3).first()
 
         assertEquals(expectedErrorState, actualErrorState)

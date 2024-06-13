@@ -139,7 +139,7 @@ class UpdateNoteUseCaseTest {
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
 
-        expected = ProcessingState.Error(TestConstants.errorNoChanges, 1)
+        expected = ProcessingState.Error(TestConstants.ERROR_NO_CHANGES_TEXT, 1)
         actualFlow = updateNoteUseCase.updateNote(0, note1)
         assertEquals(expected, actualFlow.first())
 
@@ -185,7 +185,7 @@ class UpdateNoteUseCaseTest {
         actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        expected = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
+        expected = ProcessingState.Error(TestConstants.ERROR_OUT_OF_MEMORY_TEXT, 0)
         actualFlow = updateNoteUseCase.updateNote(1, note1)
         assertEquals(expected, actualFlow.first())
 

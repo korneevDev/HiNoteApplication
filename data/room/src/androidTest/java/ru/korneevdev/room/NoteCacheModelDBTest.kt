@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -161,8 +162,7 @@ class NoteCacheModelDBTest {
         actual = noteDao.getNote(note2DB.id)
         assertEquals(expected, (actual as Flow<*>).first())
 
-        expected = null
         actual = noteDao.getNote(note1DB.id)
-        assertEquals(expected, (actual as Flow<*>).first())
+        assertNull((actual as Flow<*>).first())
     }
 }

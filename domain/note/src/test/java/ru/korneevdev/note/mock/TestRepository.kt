@@ -19,7 +19,7 @@ class TestRepository(
     val notesList = mutableListOf<SimpleNote>()
     private var timeStamp: Long? = null
     private var lastNoteId = 0
-    private val maxSize = TestConstants.maxSavedNotes
+    private val maxSize = TestConstants.MAX_MEMORY_SIZE
 
     var deletedNote: SimpleNote? = null
 

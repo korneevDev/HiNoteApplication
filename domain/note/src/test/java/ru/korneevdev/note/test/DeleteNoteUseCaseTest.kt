@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import ru.korneevdev.entity.entity.ProcessingState
 import ru.korneevdev.entity.entity.SimpleNote
@@ -83,15 +84,14 @@ class DeleteNoteUseCaseTest {
         actualSavedNotesCount = repository.notesList.size
         assertEquals(expectedSavedNotesCount, actualSavedNotesCount)
 
-        var expectedNote: SimpleNote? = note1
+        val expectedNote: SimpleNote = note1
         var actualNote = repository.deletedNote
         assertEquals(expectedNote, actualNote)
 
         deleteNoteUseCase.restoreNote()
 
-        expectedNote = null
         actualNote = repository.deletedNote
-        assertEquals(expectedNote, actualNote)
+        assertNull(actualNote)
 
         expectedSavedNotesCount = 1
         actualSavedNotesCount = repository.notesList.size

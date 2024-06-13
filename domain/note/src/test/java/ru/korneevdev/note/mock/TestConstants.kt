@@ -1,9 +1,9 @@
 package ru.korneevdev.note.mock
 
 object TestConstants{
-    const val errorNoChanges =  "There are no changes"
-    const val errorOutOfMemory = "Out of memory. Too many notes"
-    const val unexpectedError = "Unexpected exception"
+    const val ERROR_NO_CHANGES_TEXT =  "There are no changes"
+    const val ERROR_OUT_OF_MEMORY_TEXT = "Out of memory. Too many notes"
+    const val UNEXPECTED_ERROR_TEXT = "Unexpected exception"
 
-    const val maxSavedNotes = 2
+    const val MAX_MEMORY_SIZE = 2
 }
