@@ -1,22 +1,22 @@
 package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.note.room.NoteCacheModel
-import ru.korneevdev.note.room.NoteDAO
+import ru.korneevdev.room.room.NoteCacheModel
+import ru.korneevdev.room.room.NoteDAO
 
-class TestCacheDAO : NoteDAO {
+class TestCacheDAO : ru.korneevdev.room.room.NoteDAO {
 
-    val notes = mutableListOf<NoteCacheModel>()
+    val notes = mutableListOf<ru.korneevdev.room.room.NoteCacheModel>()
     override fun getNote(id: Int) = flow { emit(notes[id]) }
 
-    override fun saveNote(note: NoteCacheModel): Long {
+    override fun saveNote(note: ru.korneevdev.room.room.NoteCacheModel): Long {
         notes.add(note)
         val id = notes.lastIndex
         notes[id].id = id
         return id.toLong()
     }
 
-    override fun deleteNote(note: NoteCacheModel) {
+    override fun deleteNote(note: ru.korneevdev.room.room.NoteCacheModel) {
         notes.remove(note)
     }
 }

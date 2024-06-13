@@ -1,7 +1,7 @@
 package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.CoroutineDispatcher
-import ru.korneevdev.note.utils.DispatcherManager
+import ru.korneevdev.note.DispatcherManager
 
 class TestDispatcherManager(
     private val dispatcher: CoroutineDispatcher

@@ -4,38 +4,32 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import ru.korneevdev.note.entity.Note
-import ru.korneevdev.note.entity.NoteTimeStamp
-import ru.korneevdev.note.entity.SimpleNote
-import ru.korneevdev.note.mapper.NoteMapper
-import ru.korneevdev.note.mapperImplementation.MapperToNoteCacheModel
-import ru.korneevdev.note.room.NoteCacheModel
-import ru.korneevdev.note.room.NoteDAO
+import ru.korneevdev.entity.entity.Note
 
 interface NoteCacheDataSource {
 
     suspend fun getNote(id: Int): Flow<Note>
 
-    suspend fun saveNote(note: SimpleNote, timeStamp: NoteTimeStamp): Flow<Int>
+    suspend fun saveNote(note: ru.korneevdev.entity.entity.SimpleNote, timeStamp: ru.korneevdev.entity.entity.NoteTimeStamp): Flow<Int>
 
     suspend fun saveNote(note: Note): Flow<Int>
 
     suspend fun deleteNote(id: Int): Note
 
     class Base(
-        private val dao: NoteDAO,
-        private val mapperToDB: MapperToNoteCacheModel,
-        private val mapperFromDB: NoteMapper<Note>
+        private val dao: ru.korneevdev.room.room.NoteDAO,
+        private val mapperToDB: ru.korneevdev.room.room.mapperImplementation.MapperToNoteCacheModel,
+        private val mapperFromDB: ru.korneevdev.entity.mapper.NoteMapper<Note>
     ) : NoteCacheDataSource {
         override suspend fun getNote(id: Int) = dao.getNote(id).map {
             it.map(mapperFromDB)
         }
 
-        override suspend fun saveNote(note: SimpleNote, timeStamp: NoteTimeStamp) =
+        override suspend fun saveNote(note: ru.korneevdev.entity.entity.SimpleNote, timeStamp: ru.korneevdev.entity.entity.NoteTimeStamp) =
             flow {
                 emit(
                     dao.saveNote(
-                        NoteCacheModel(
+                        ru.korneevdev.room.room.NoteCacheModel(
                             note.map(mapperToDB),
                             timeStamp.map(mapperToDB)
                         )

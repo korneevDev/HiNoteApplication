@@ -5,12 +5,10 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import ru.korneevdev.entity.test_utils.TestNoteBuilder
 import ru.korneevdev.note.NoteRepositoryImplementation
-import ru.korneevdev.note.entity.ProcessingState
 import ru.korneevdev.note.mock.TestCacheDataSource
 import ru.korneevdev.note.mock.TestDispatcherManager
-import ru.korneevdev.note.test_utils.TestNoteBuilder
-import ru.korneevdev.note.test_utils.TestTimeStampManager
 
 class NoteRepositoryTest {
 
@@ -32,18 +30,18 @@ class NoteRepositoryTest {
     fun saveAndUpdateNote() = runTest(dispatcher) {
         val dataSource = TestCacheDataSource()
         val dispatcherManager = TestDispatcherManager(dispatcher)
-        val timeStampManager = TestTimeStampManager()
+        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
 
         val repository =
             NoteRepositoryImplementation(dataSource, dispatcherManager)
 
-        var expected = ProcessingState.Created(0)
+        var expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
         timeStampManager.time = 1
 
-        expected = ProcessingState.Created(1)
+        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
         actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeLong(), 0)
         assertEquals(expected, actualFlow.first())
 
@@ -60,7 +58,7 @@ class NoteRepositoryTest {
 
         timeStampManager.time = 2
 
-        expected = ProcessingState.Created(2)
+        expected = ru.korneevdev.entity.entity.ProcessingState.Created(2)
         actualFlow = repository.saveNote(note3, timeStampManager.getCurrentTimeLong(), 1)
         assertEquals(expected, actualFlow.first())
 
@@ -80,12 +78,12 @@ class NoteRepositoryTest {
     fun saveAndGetNote() = runTest(dispatcher) {
         val dataSource = TestCacheDataSource()
         val dispatcherManager = TestDispatcherManager(dispatcher)
-        val timeStampManager = TestTimeStampManager()
+        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
 
         val repository =
             NoteRepositoryImplementation(dataSource, dispatcherManager)
 
-        val expected = ProcessingState.Created(0)
+        val expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         val actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
@@ -102,12 +100,12 @@ class NoteRepositoryTest {
     fun saveAndDeleteNote() = runTest(dispatcher) {
         val dataSource = TestCacheDataSource()
         val dispatcherManager = TestDispatcherManager(dispatcher)
-        val timeStampManager = TestTimeStampManager()
+        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
 
         val repository =
             NoteRepositoryImplementation(dataSource, dispatcherManager)
 
-        var expected = ProcessingState.Created(0)
+        var expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
@@ -119,7 +117,7 @@ class NoteRepositoryTest {
         val actualNote = repository.getNote(0)
         assertEquals(expectedNote, actualNote.first())
 
-        expected = ProcessingState.Created(1)
+        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
         actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
@@ -138,12 +136,12 @@ class NoteRepositoryTest {
     fun saveDeleteAndRestoreNote() = runTest(dispatcher) {
         val dataSource = TestCacheDataSource()
         val dispatcherManager = TestDispatcherManager(dispatcher)
-        val timeStampManager = TestTimeStampManager()
+        val timeStampManager = ru.korneevdev.entity.test_utils.TestTimeStampManager()
 
         val repository =
             NoteRepositoryImplementation(dataSource, dispatcherManager)
 
-        var expected = ProcessingState.Created(0)
+        var expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         var actualFlow = repository.saveNote(note1, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 
@@ -155,7 +153,7 @@ class NoteRepositoryTest {
         var actualNote = repository.getNote(0)
         assertEquals(expectedNote, actualNote.first())
 
-        expected = ProcessingState.Created(1)
+        expected = ru.korneevdev.entity.entity.ProcessingState.Created(1)
         actualFlow = repository.saveNote(note2, timeStampManager.getCurrentTimeStamp())
         assertEquals(expected, actualFlow.first())
 

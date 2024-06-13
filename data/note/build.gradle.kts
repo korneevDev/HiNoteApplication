@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -10,8 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     kotlinOptions {
@@ -22,15 +19,12 @@ android {
 dependencies {
 
     implementation(project(":domain:note"))
+    implementation(project(":data:room"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.kxt)
-    ksp(libs.androidx.room.compiler)
+    
 }

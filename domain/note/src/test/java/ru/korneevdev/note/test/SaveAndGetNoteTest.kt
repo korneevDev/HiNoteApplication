@@ -4,14 +4,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.korneevdev.note.entity.Note
-import ru.korneevdev.note.entity.NoteTimeStamp
-import ru.korneevdev.note.entity.ProcessingState
+import ru.korneevdev.entity.entity.Note
+import ru.korneevdev.entity.entity.NoteTimeStamp
+import ru.korneevdev.entity.entity.ProcessingState
 import ru.korneevdev.note.mock.TestConstants
 import ru.korneevdev.note.mock.TestExceptionHandler
-import ru.korneevdev.note.test_utils.TestNoteBuilder
+import ru.korneevdev.entity.test_utils.TestNoteBuilder
 import ru.korneevdev.note.mock.TestRepository
-import ru.korneevdev.note.test_utils.TestTimeStampManager
+import ru.korneevdev.entity.test_utils.TestTimeStampManager
 import ru.korneevdev.note.use_case.GetNoteUseCase
 import ru.korneevdev.note.use_case.SaveNoteUseCase
 
@@ -41,7 +41,7 @@ class SaveAndGetNoteTest {
                 timeStampManager
             )
 
-        val expected = ProcessingState.Created(0)
+        val expected = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         val actualFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expected, actualFlow.first())
 
@@ -63,11 +63,15 @@ class SaveAndGetNoteTest {
             )
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        val expectedState = ProcessingState.Created(0)
+        val expectedState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         val actualStateFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expectedState, actualStateFlow.first())
 
-        val expectedNote = Note(0, NoteTimeStamp.Updated(10L, 20L), note1)
+        val expectedNote = ru.korneevdev.entity.entity.Note(
+            0,
+            ru.korneevdev.entity.entity.NoteTimeStamp.Updated(10L, 20L),
+            note1
+        )
         val actualNoteFlow = getNoteUseCase.getNote(0)
         assertEquals(expectedNote, actualNoteFlow.first())
     }
@@ -85,19 +89,27 @@ class SaveAndGetNoteTest {
             )
         val getNoteUseCase = GetNoteUseCase.Base(repository)
 
-        var expectedState = ProcessingState.Created(0)
+        var expectedState = ru.korneevdev.entity.entity.ProcessingState.Created(0)
         var actualStateFlow = saveNoteUseCase.saveNote(note1)
         assertEquals(expectedState, actualStateFlow.first())
 
-        expectedState = ProcessingState.Created(1)
+        expectedState = ru.korneevdev.entity.entity.ProcessingState.Created(1)
         actualStateFlow = saveNoteUseCase.saveNote(note2)
         assertEquals(expectedState, actualStateFlow.first())
 
-        var expectedNote = Note(0, NoteTimeStamp.Updated(10L, 20L), note1)
+        var expectedNote = ru.korneevdev.entity.entity.Note(
+            0,
+            ru.korneevdev.entity.entity.NoteTimeStamp.Updated(10L, 20L),
+            note1
+        )
         var actualNoteFlow = getNoteUseCase.getNote(0)
         assertEquals(expectedNote, actualNoteFlow.first())
 
-        expectedNote = Note(1, NoteTimeStamp.Updated(10L, 20L), note2)
+        expectedNote = ru.korneevdev.entity.entity.Note(
+            1,
+            ru.korneevdev.entity.entity.NoteTimeStamp.Updated(10L, 20L),
+            note2
+        )
         actualNoteFlow = getNoteUseCase.getNote(1)
         assertEquals(expectedNote, actualNoteFlow.first())
     }
@@ -117,7 +129,7 @@ class SaveAndGetNoteTest {
         saveNoteUseCase.saveNote(note1)
         saveNoteUseCase.saveNote(note2)
 
-        val expectedErrorState = ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
+        val expectedErrorState = ru.korneevdev.entity.entity.ProcessingState.Error(TestConstants.errorOutOfMemory, 0)
         val actualErrorState = saveNoteUseCase.saveNote(note3).first()
 
         assertEquals(expectedErrorState, actualErrorState)

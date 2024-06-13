@@ -1,12 +1,12 @@
 package ru.korneevdev.note.exception
 
-import ru.korneevdev.core.NoteException
-import ru.korneevdev.core.StringResourceProvider
+import ru.korneevDev.core.NoteException
+import ru.korneevDev.core.StringResourceProvider
 import ru.korneevdev.note.R
 
 class OutOfMemoryException(
-    stringResourceProvider: StringResourceProvider
-) : NoteException(
+    stringResourceProvider: ru.korneevDev.core.StringResourceProvider
+) : ru.korneevDev.core.NoteException(
     stringResourceProvider.provideString(R.string.outOfMemoryNotesException)
 ) {
     override val imageRes: Int
