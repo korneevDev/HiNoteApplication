@@ -2,10 +2,10 @@ package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.entity.entity.Note
-import ru.korneevdev.entity.entity.NoteTimeStamp
-import ru.korneevdev.entity.entity.ProcessingState
-import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.noteEntity.Note
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.ProcessingState
+import ru.korneevdev.entity.noteEntity.SimpleNote
 import ru.korneevdev.entity.test_utils.TestTimeStampManager
 import ru.korneevdev.note.DeleteNoteRepository
 import ru.korneevdev.note.GetNoteRepository

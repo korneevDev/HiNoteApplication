@@ -1,6 +1,6 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
-import ru.korneevdev.entity.mapper.SimpleNoteMapper
+import ru.korneevdev.entity.noteMapper.SimpleNoteMapper
 
 interface SimpleNoteMapped{
     fun <T> map(mapper: SimpleNoteMapper<T>) : T

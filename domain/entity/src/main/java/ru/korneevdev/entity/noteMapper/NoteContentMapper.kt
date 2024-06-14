@@ -1,4 +1,4 @@
-package ru.korneevdev.entity.mapper
+package ru.korneevdev.entity.noteMapper
 
 interface NoteContentMapper<T> {
 

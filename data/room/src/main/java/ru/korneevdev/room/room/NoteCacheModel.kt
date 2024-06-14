@@ -3,18 +3,18 @@ package ru.korneevdev.room.room
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.korneevdev.entity.entity.NoteColorMapped
-import ru.korneevdev.entity.entity.NoteContentMapped
-import ru.korneevdev.entity.entity.NoteHeaderMapped
-import ru.korneevdev.entity.entity.NoteMapped
-import ru.korneevdev.entity.entity.NoteTimeStampMapped
-import ru.korneevdev.entity.entity.SimpleNoteMapped
-import ru.korneevdev.entity.mapper.NoteColorMapper
-import ru.korneevdev.entity.mapper.NoteContentMapper
-import ru.korneevdev.entity.mapper.NoteHeaderMapper
-import ru.korneevdev.entity.mapper.NoteMapper
-import ru.korneevdev.entity.mapper.NoteTimeStampMapper
-import ru.korneevdev.entity.mapper.SimpleNoteMapper
+import ru.korneevdev.entity.noteEntity.NoteColorMapped
+import ru.korneevdev.entity.noteEntity.NoteContentMapped
+import ru.korneevdev.entity.noteEntity.NoteHeaderMapped
+import ru.korneevdev.entity.noteEntity.NoteMapped
+import ru.korneevdev.entity.noteEntity.NoteTimeStampMapped
+import ru.korneevdev.entity.noteEntity.SimpleNoteMapped
+import ru.korneevdev.entity.noteMapper.NoteColorMapper
+import ru.korneevdev.entity.noteMapper.NoteContentMapper
+import ru.korneevdev.entity.noteMapper.NoteHeaderMapper
+import ru.korneevdev.entity.noteMapper.NoteMapper
+import ru.korneevdev.entity.noteMapper.NoteTimeStampMapper
+import ru.korneevdev.entity.noteMapper.SimpleNoteMapper
 
 @Entity(tableName = "note")
 data class NoteCacheModel(

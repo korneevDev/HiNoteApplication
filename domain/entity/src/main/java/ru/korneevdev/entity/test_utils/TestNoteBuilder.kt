@@ -1,11 +1,11 @@
 package ru.korneevdev.entity.test_utils
 
-import ru.korneevdev.entity.entity.Note
-import ru.korneevdev.entity.entity.NoteColor
-import ru.korneevdev.entity.entity.NoteContent
-import ru.korneevdev.entity.entity.NoteHeader
-import ru.korneevdev.entity.entity.NoteTimeStamp
-import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.noteEntity.Note
+import ru.korneevdev.entity.noteEntity.NoteColor
+import ru.korneevdev.entity.noteEntity.NoteContent
+import ru.korneevdev.entity.noteEntity.NoteHeader
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.SimpleNote
 
 object TestNoteBuilder {
 

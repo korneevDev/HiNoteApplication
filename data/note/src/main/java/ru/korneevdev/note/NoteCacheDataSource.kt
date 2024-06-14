@@ -4,10 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import ru.korneevdev.entity.entity.Note
-import ru.korneevdev.entity.entity.NoteTimeStamp
-import ru.korneevdev.entity.entity.SimpleNote
-import ru.korneevdev.entity.mapper.NoteMapper
+import ru.korneevdev.entity.noteEntity.Note
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.SimpleNote
+import ru.korneevdev.entity.noteMapper.NoteMapper
 import ru.korneevdev.room.room.MapperToNoteCacheModel
 import ru.korneevdev.room.room.NoteCacheModel
 import ru.korneevdev.room.room.NoteDAO

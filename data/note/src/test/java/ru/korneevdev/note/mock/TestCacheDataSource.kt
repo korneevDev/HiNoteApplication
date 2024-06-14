@@ -2,9 +2,9 @@ package ru.korneevdev.note.mock
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.entity.entity.Note
-import ru.korneevdev.entity.entity.NoteTimeStamp
-import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.noteEntity.Note
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.SimpleNote
 import ru.korneevdev.note.NoteCacheDataSource
 
 class TestCacheDataSource : NoteCacheDataSource {

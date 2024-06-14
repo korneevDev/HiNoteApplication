@@ -1,6 +1,6 @@
 package ru.korneevdev.entity.utils
 
-import ru.korneevdev.entity.entity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
 
 
 interface TimeStampManager {

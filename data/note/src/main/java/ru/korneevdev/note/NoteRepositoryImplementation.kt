@@ -4,10 +4,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.korneevDev.core.CachedData
-import ru.korneevdev.entity.entity.Note
-import ru.korneevdev.entity.entity.NoteTimeStamp
-import ru.korneevdev.entity.entity.ProcessingState
-import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.noteEntity.Note
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.ProcessingState
+import ru.korneevdev.entity.noteEntity.SimpleNote
 
 class NoteRepositoryImplementation(
     private val cacheDataSource: NoteCacheDataSource,

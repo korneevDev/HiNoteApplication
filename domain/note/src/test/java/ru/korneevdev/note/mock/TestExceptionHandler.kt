@@ -1,7 +1,7 @@
 package ru.korneevdev.note.mock
 
 import ru.korneevDev.core.ExceptionHandler
-import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.noteEntity.ProcessingState
 import ru.korneevdev.note.exception.OutOfMemoryException
 import ru.korneevdev.note.exception.SameUpdatedNotesException
 

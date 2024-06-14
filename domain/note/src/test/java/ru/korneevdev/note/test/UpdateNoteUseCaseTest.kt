@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.noteEntity.ProcessingState
 import ru.korneevdev.entity.test_utils.TestNoteBuilder
 import ru.korneevdev.entity.test_utils.TestTimeStampManager
 import ru.korneevdev.note.mock.TestConstants

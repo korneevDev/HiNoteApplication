@@ -2,7 +2,7 @@ package ru.korneevdev.note.use_case
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.korneevdev.entity.entity.ProcessingState
+import ru.korneevdev.entity.noteEntity.ProcessingState
 import ru.korneevdev.note.DeleteNoteRepository
 
 interface DeleteNoteUseCase {

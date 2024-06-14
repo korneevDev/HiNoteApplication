@@ -1,6 +1,6 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
-import ru.korneevdev.entity.mapper.NoteContentMapper
+import ru.korneevdev.entity.noteMapper.NoteContentMapper
 
 interface NoteContentMapped{
     fun <T> map(mapper: NoteContentMapper<T>): T

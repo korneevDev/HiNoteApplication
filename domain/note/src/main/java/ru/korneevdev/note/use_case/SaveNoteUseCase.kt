@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.korneevDev.core.ExceptionHandler
 import ru.korneevDev.core.NoteException
-import ru.korneevdev.entity.entity.ProcessingState
-import ru.korneevdev.entity.entity.SimpleNote
+import ru.korneevdev.entity.noteEntity.ProcessingState
+import ru.korneevdev.entity.noteEntity.SimpleNote
 import ru.korneevdev.entity.utils.TimeStampManager
 import ru.korneevdev.note.SaveNoteRepository
 

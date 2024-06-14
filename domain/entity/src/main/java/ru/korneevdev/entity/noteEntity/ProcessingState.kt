@@ -1,4 +1,4 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
 sealed interface ProcessingState {
 

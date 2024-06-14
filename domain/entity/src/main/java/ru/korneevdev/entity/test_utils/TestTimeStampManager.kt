@@ -1,6 +1,6 @@
 package ru.korneevdev.entity.test_utils
 
-import ru.korneevdev.entity.entity.NoteTimeStamp
+import ru.korneevdev.entity.noteEntity.NoteTimeStamp
 import ru.korneevdev.entity.utils.TimeStampManager
 
 class TestTimeStampManager : TimeStampManager {

@@ -1,6 +1,6 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
-import ru.korneevdev.entity.mapper.NoteTimeStampMapper
+import ru.korneevdev.entity.noteMapper.NoteTimeStampMapper
 
 interface NoteTimeStampMapped {
 

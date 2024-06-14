@@ -1,6 +1,6 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
-import ru.korneevdev.entity.mapper.NoteColorMapper
+import ru.korneevdev.entity.noteMapper.NoteColorMapper
 
 interface NoteColorMapped {
 

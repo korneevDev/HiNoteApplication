@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/note" />
+            <option value="$PROJECT_DIR$/data/notesList" />
             <option value="$PROJECT_DIR$/data/room" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/core" />

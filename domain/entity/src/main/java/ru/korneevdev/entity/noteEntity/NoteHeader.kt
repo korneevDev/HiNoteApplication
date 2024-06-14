@@ -1,6 +1,6 @@
-package ru.korneevdev.entity.entity
+package ru.korneevdev.entity.noteEntity
 
-import ru.korneevdev.entity.mapper.NoteHeaderMapper
+import ru.korneevdev.entity.noteMapper.NoteHeaderMapper
 
 interface NoteHeaderMapped{
     fun <T> map(mapper: NoteHeaderMapper<T>): T
